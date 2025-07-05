@@ -5,9 +5,9 @@ class LinkedList {
     this.tail = null;
     // Class to hold each individual node element
     this.node = class Node {
-      constructor(value = null, nextNode = null) {
+      constructor(value = null, next = null) {
         this.value = value;
-        this.nextNode = nextNode;
+        this.next = next;
       }
     }
   }
@@ -17,17 +17,32 @@ class LinkedList {
     if (this.size === 0) { // If size is 0 node is head and tail at same time
       this.head = node;
     } else {
-      this.tail.nextNode = node;
+      this.tail.next = node;
     }
     this.size++;
     this.tail = node;
+  }
+  // Adds node to start of linked list
+  prepend(value) {
+    let node = new this.node(value)
+    if (this.size === 0) {
+      this.tail = node;
+    } else {
+      node.next = this.head;
+    }
+    this.size++;
+    this.head = node;
   }
 }
 
 
 const li = new LinkedList();
+
 li.append('dog');
 li.append('cat');
+li.append('elephant');
+li.append('mouse');
+li.append('rat');
+li.prepend('bat');
 
 console.log(li);
-
