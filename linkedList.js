@@ -85,7 +85,7 @@ class LinkedList {
   contains(value = '') {
     let node = this.head;
     value = value.trim();
-    if (this.head === null) {
+    if (node=== null) {
       return 'List is empty.'
     } else if (typeof value === 'number') {
       return 'Node can\'t be number.'
@@ -107,7 +107,8 @@ class LinkedList {
     let node = this.head;
     value = value.trim();
     let idx = 0;
-    if (this.head === null) {
+    // If list is empty
+    if (node === null) {
       return 'List is empty.'
     } else if (typeof value === 'number') {
       return 'Node\'s value can\'t be number.'
@@ -123,6 +124,11 @@ class LinkedList {
     }
     return null;
   }
+  // Prints whole linked list as string for visual preview
+  toString(node = this.head) {
+    if (node === null) return 'null';
+    return `(${node.value}) -> ` + this.toString(node.next);
+  }
 }
 
 
@@ -134,6 +140,8 @@ li.append('cat');
 li.append('elephant');
 li.append('mouse');
 li.append('rat');
+li.append('human');
+li.append('ape');
 
 
-console.log(li.at(2));
+console.log(li.toString());
