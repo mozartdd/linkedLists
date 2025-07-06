@@ -1,4 +1,4 @@
-class LinkedList {
+export default class LinkedList {
   constructor() {
     this.size = 0;
     this.head = null;
@@ -129,19 +129,66 @@ class LinkedList {
     if (node === null) return 'null';
     return `(${node.value}) -> ` + this.toString(node.next);
   }
+  // Inserts value at specific idx inside list
+  insertAt(value, index) {
+    let newNode = new this.node(value);
+    let node = this.head;
+    // Zero index is skipped durning first else if block
+    let i = 1;
+    if (index >= this.size || index < 0) {
+      return `Max possible index is ${this.size - 1}. Min possible index is 0.`;
+    } else if (index === 0) {
+      this.prepend(value);
+    } else if (index === this.size - 1) {
+      this.append(value);
+    } else {
+      while (node !== null) {
+        // If index is same as i insert new node in that position and make 
+        // previous node point at new node and new node point at next node
+        if (index === i) {
+          newNode.next = node.next;
+          node.next = newNode;
+          this.size++;
+          return;
+        }
+        i++;
+        node = node.next;
+      }
+    }
+    return 'Unknown error, try again.'
+  }
+  // Removes node as specific idx
+  removeAt(index) {
+    let node = this.head;
+    let previous = this.head;
+    let i = 0;
+    if (typeof index !== 'number') {
+      return 'Please enter valid number.'
+    } else if (index >= this.size || index < 0) {
+      return `Index must be between 0 and ${this.size - 1}.`
+    } else {
+      while (node !== null) {
+        if (index === 0) {
+          this.size--;
+          this.head = node.next;
+          return this.size;
+        } else if (index === i && index !== this.size - 1) {
+          this.size--;
+          previous.next = node.next;
+          return this.size;
+        } else if (index === this.size - 1 && i === this.size - 1) {
+          this.size--;
+          previous.next = null;
+          this.tail = previous;
+          return this.size;
+        }
+        node = node.next;
+        if (i >= 1) {
+          previous = previous.next
+        }
+        i++;
+      }
+    }
+    return 'Unknown error, try again.'
+  }
 }
-
-
-const li = new LinkedList();
-
-li.prepend('bat');
-li.append('dog');
-li.append('cat');
-li.append('elephant');
-li.append('mouse');
-li.append('rat');
-li.append('human');
-li.append('ape');
-
-
-console.log(li.toString());
