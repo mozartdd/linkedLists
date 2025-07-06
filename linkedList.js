@@ -83,6 +83,7 @@ class LinkedList {
   }
   // Returns true if value is in list else false
   contains(value = '') {
+    let node = this.head;
     value = value.trim();
     if (this.head === null) {
       return 'List is empty.'
@@ -91,7 +92,6 @@ class LinkedList {
     } else if (value === '') {
       return 'Enter valid node name.'
     }
-    let node = this.head;
     while (node !== null) {
       if (node.value === value) {
         return true;
@@ -101,6 +101,27 @@ class LinkedList {
     }
     // If no element found return false
     return false;
+  }
+  // Return idx of node containing value or null if not found
+  find(value = '') {
+    let node = this.head;
+    value = value.trim();
+    let idx = 0;
+    if (this.head === null) {
+      return 'List is empty.'
+    } else if (typeof value === 'number') {
+      return 'Node\'s value can\'t be number.'
+    } else if (value === '') {
+      return 'Enter valid node name.'
+    }
+    while (node !== null) {
+      if (value === node.value) {
+        return idx;
+      }
+      idx++;
+      node = node.next;
+    }
+    return null;
   }
 }
 
@@ -115,4 +136,4 @@ li.append('mouse');
 li.append('rat');
 
 
-console.log(li.at(5));
+console.log(li.at(2));
