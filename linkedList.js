@@ -47,7 +47,7 @@ class LinkedList {
     // Iterate while loop hasn't reached end of list
     while (i <= this.size - 1) {
       if (idx === i) {
-        return node.value;
+        return node;
       }
       i++;
       // Current node becomes node's next element
@@ -55,16 +55,43 @@ class LinkedList {
     }
     return -1;
   }
+  // Removes last element from list
+  pop() {
+    switch (this.size) {
+      case 0:
+        return 'List is already empty.';
+
+      case 1:
+        this.size--;
+        this.head = null;
+        this.tail = null;
+        return 'List is now empty.';
+
+      case 2:
+        this.size--;
+        this.head.next = null;
+        this.tail = this.head;
+        return 'List now contains a single element.';
+
+      default:
+        let newTail = this.at(this.size - 2);
+        this.tail = newTail;
+        this.tail.next = null;
+        this.size--;
+        return this.tail;
+    }
+  }
 }
 
 
 const li = new LinkedList();
 
+li.prepend('bat');
 li.append('dog');
 li.append('cat');
 li.append('elephant');
 li.append('mouse');
 li.append('rat');
-li.prepend('bat');
 
-console.log(li.at(6));
+
+console.log(li);
