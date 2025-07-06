@@ -40,7 +40,7 @@ class LinkedList {
     if (idx >= this.size) {
       return `List does not have so many elements. Size: ${this.size}`;
     }
-    if (idx < 0) {
+    if (idx < 0 || typeof idx !== 'number') {
       return `Please enter positive integer.`;
     }
 
@@ -81,6 +81,27 @@ class LinkedList {
         return this.tail;
     }
   }
+  // Returns true if value is in list else false
+  contains(value = '') {
+    value = value.trim();
+    if (this.head === null) {
+      return 'List is empty.'
+    } else if (typeof value === 'number') {
+      return 'Node can\'t be number.'
+    } else if (value === '') {
+      return 'Enter valid node name.'
+    }
+    let node = this.head;
+    while (node !== null) {
+      if (node.value === value) {
+        return true;
+      }
+      // Current node becomes node's next element
+      node = node.next;
+    }
+    // If no element found return false
+    return false;
+  }
 }
 
 
@@ -94,4 +115,4 @@ li.append('mouse');
 li.append('rat');
 
 
-console.log(li);
+console.log(li.at(5));
